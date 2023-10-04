@@ -25,28 +25,44 @@ function soundClick() {
 
 // Поле ввода количества карт по вертикали/горизонтали.
 function createInputForm() {
-  const form = document.createElement("form");
-  const horizonInput = document.createElement("input");
-  const verticalInput = document.createElement("input");
-  const labelHorizon = document.createElement("label");
-  const labelVertical = document.createElement("label");
-  const btnWrapper = document.createElement("div");
-  const btnStartGame = document.createElement("button");
+  const form = document.createElement("form"),
+    horizonInput = document.createElement("select"),
+    verticalInput = document.createElement("select"),
+    horizonOption1 = document.createElement("option"),
+    verticalOption1 = document.createElement("option"),
+    horizonOption2 = document.createElement("option"),
+    verticalOption2 = document.createElement("option"),
+    horizonOption3 = document.createElement("option"),
+    verticalOption3 = document.createElement("option"),
+    verticalOption4 = document.createElement("option"),
+    verticalOption5 = document.createElement("option"),
+    btnWrapper = document.createElement("div"),
+    btnStartGame = document.createElement("button");
 
-  labelHorizon.textContent = "Количество карт по горизонтали -";
-  labelVertical.textContent = "Количество карт по вертикали -";
-  labelHorizon.classList.add("label-input-1");
-  labelVertical.classList.add("label-input-2");
   horizonInput.classList.add("input-item-1");
   verticalInput.classList.add("input-item-2");
   btnStartGame.classList.add("btnStartGame");
   btnStartGame.textContent = "Начать новую игру";
+  horizonOption1.textContent = 2;
+  horizonOption2.textContent = 4;
+  horizonOption3.textContent = 6;
+  verticalOption1.textContent = 2;
+  verticalOption2.textContent = 4;
+  verticalOption3.textContent = 6;
+  verticalOption4.textContent = 8;
+  verticalOption5.textContent = 10;
 
+  horizonInput.append(horizonOption1, horizonOption2, horizonOption3);
+  verticalInput.append(
+    verticalOption1,
+    verticalOption2,
+    verticalOption3,
+    verticalOption4,
+    verticalOption5
+  );
   btnWrapper.append(btnStartGame);
-  labelHorizon.append(horizonInput);
-  labelVertical.append(verticalInput);
-  form.append(labelHorizon);
-  form.append(labelVertical);
+  form.append(horizonInput);
+  form.append(verticalInput);
   form.append(btnWrapper);
 
   return {
