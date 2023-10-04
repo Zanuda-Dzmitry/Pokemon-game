@@ -1,2 +1,2 @@
 # Pokemon-game
-Pokemon-game.ru Blog
+Pokemon-game.ru
