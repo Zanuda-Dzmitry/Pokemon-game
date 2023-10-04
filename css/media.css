@@ -55,4 +55,8 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+  .card-btn--active {
+    background-color: green;
+  }
 }
