@@ -1,0 +1,58 @@
+@media (max-width: 768px) {
+  .div {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 50px 50px;
+    row-gap: 10px;
+    column-gap: 20px;
+    padding: 30px;
+  }
+  .div-columns-4 {
+    grid-template-columns: repeat(4, 50px);
+  }
+
+  .div-columns-6 {
+    grid-template-columns: repeat(6, 50px);
+  }
+  .card-btn {
+    width: 50px;
+    height: 50px;
+    background-position-y: 10px;
+    background-color: #d9f508;
+    padding: 2px;
+    font-size: 0;
+    border: 3px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 576px) {
+  .div {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 40px);
+    row-gap: 5px;
+    column-gap: 15px;
+    padding: 30px;
+  }
+  .div-columns-4 {
+    grid-template-columns: repeat(4, 40px);
+  }
+
+  .div-columns-6 {
+    grid-template-columns: repeat(6, 40px);
+  }
+
+  .card-btn {
+    width: 40px;
+    height: 40px;
+    background-position-y: 10px;
+    background-color: #d9f508;
+    padding: 2px;
+    font-size: 0;
+    border: 3px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
