@@ -252,6 +252,7 @@ body {
   font-size: 16px;
   color: #5b2e10;
   z-index: 1000;
+  cursor: pointer;
 }
 
 .burger--none {
