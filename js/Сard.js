@@ -12,6 +12,8 @@ class Card {
     const card = document.createElement("div");
     card.classList.add("card-btn");
     this._img.classList.add("card-img");
+    this._imgCard.classList.add("card-wrapper");
+    this._imgCard.src = "../img/ball-188918.png";
     card.textContent = this.cardNumber;
     this.card = card;
     card.append(this._imgCard, this._img);
@@ -62,8 +64,6 @@ export class AmazingCard extends Card {
     this._cardNumber = value;
     const imgCard = document.createElement("img");
     const img = document.createElement("img");
-    this._imgCard.classList.add("card-wrapper");
-    this._imgCard.src = "../img/ball-188918.png";
     fetchApi(this._cardNumber).then((url) => (img.src = url));
     img.alt = "picture";
     this._imgCard = imgCard;
