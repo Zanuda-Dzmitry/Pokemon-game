@@ -23,11 +23,48 @@ function soundClick() {
 }
 // soundClick();
 
+function burgerMenu() {
+  const container = document.createElement("div"),
+    button = document.createElement("button"),
+    spanBunTop = document.createElement("span"),
+    spanChez = document.createElement("span"),
+    spanMeet = document.createElement("span"),
+    spanLettuce = document.createElement("span"),
+    spanBunBottom = document.createElement("span");
+
+  button.textContent = "меню";
+  container.classList.add("burger-container");
+  button.classList.add("burger");
+  spanBunTop.classList.add("hamburger", "bun", "top");
+  spanChez.classList.add("hamburger", "chez");
+  spanMeet.classList.add("hamburger", "meet");
+  spanLettuce.classList.add("hamburger", "lettuce");
+  spanBunBottom.classList.add("hamburger", "bun", "bottom");
+
+  button.append(spanBunTop, spanChez, spanMeet, spanLettuce, spanBunBottom);
+  container.append(button);
+  document.getElementById("card-game").append(container);
+  return button;
+}
+
 // Поле ввода количества карт по вертикали/горизонтали.
-function createInputForm() {
-  const form = document.createElement("form"),
-    horizonInput = document.createElement("select"),
-    verticalInput = document.createElement("select"),
+function createModalForm() {
+  const burgerButton = burgerMenu();
+  const modal = document.createElement("div"),
+    form = document.createElement("form"),
+    buttonClose = document.createElement("button"),
+    list = document.createElement("ul"),
+    horizonSelectItem = document.createElement("li"),
+    verticalSelectItem = document.createElement("li"),
+    labelHorizonSelectItem = document.createElement("li"),
+    labelVerticalSelectItem = document.createElement("li"),
+    span1 = document.createElement("span"),
+    span2 = document.createElement("span"),
+    formTitle = document.createElement("h4"),
+    horizonSelect = document.createElement("select"),
+    verticalSelect = document.createElement("select"),
+    labelHorizonSelect = document.createElement("label"),
+    labelVerticalSelect = document.createElement("label"),
     horizonOption1 = document.createElement("option"),
     verticalOption1 = document.createElement("option"),
     horizonOption2 = document.createElement("option"),
@@ -36,12 +73,23 @@ function createInputForm() {
     verticalOption3 = document.createElement("option"),
     verticalOption4 = document.createElement("option"),
     verticalOption5 = document.createElement("option"),
-    btnWrapper = document.createElement("div"),
     btnStartGame = document.createElement("button");
 
-  horizonInput.classList.add("input-item-1");
-  verticalInput.classList.add("input-item-2");
+  modal.classList.add("modal");
+  form.classList.add("modal__form");
+  formTitle.classList.add("form-title");
+  buttonClose.classList.add("modal__btn-close");
+  span1.classList.add("btn-close__span", "btn-close__span-1");
+  span2.classList.add("btn-close__span", "btn-close__span-2");
+  labelHorizonSelect.classList.add("form-label");
+  labelVerticalSelect.classList.add("form-label");
+  list.classList.add("modal__list");
+  horizonSelect.classList.add("input-item");
+  verticalSelect.classList.add("input-item");
   btnStartGame.classList.add("btnStartGame");
+  formTitle.textContent = "Количество карт";
+  labelHorizonSelect.textContent = "горизонтали";
+  labelVerticalSelect.textContent = "вертикали";
   btnStartGame.textContent = "Начать новую игру";
   horizonOption1.textContent = 2;
   horizonOption2.textContent = 4;
@@ -52,23 +100,50 @@ function createInputForm() {
   verticalOption4.textContent = 8;
   verticalOption5.textContent = 10;
 
-  horizonInput.append(horizonOption1, horizonOption2, horizonOption3);
-  verticalInput.append(
+  horizonSelect.append(horizonOption1, horizonOption2, horizonOption3);
+  verticalSelect.append(
     verticalOption1,
     verticalOption2,
     verticalOption3,
     verticalOption4,
     verticalOption5
   );
-  btnWrapper.append(btnStartGame);
-  form.append(horizonInput);
-  form.append(verticalInput);
-  form.append(btnWrapper);
+
+  horizonSelectItem.append(horizonSelect);
+  verticalSelectItem.append(verticalSelect);
+  labelHorizonSelectItem.append(labelHorizonSelect);
+  labelVerticalSelectItem.append(labelVerticalSelect);
+
+  list.append(
+    verticalSelectItem,
+    labelVerticalSelectItem,
+    horizonSelectItem,
+    labelHorizonSelectItem
+  );
+
+  buttonClose.append(span1, span2);
+  form.append(formTitle, list, btnStartGame, buttonClose);
+  modal.append(form);
+
+  burgerButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal.classList.add("modal__form--active");
+    form.classList.add("modal__form--active");
+    this.classList.add("burger--none");
+  });
+
+  buttonClose.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal.classList.remove("modal__form--active");
+    form.classList.remove("modal__form--active");
+    burgerButton.classList.remove("burger--none");
+  });
 
   return {
+    modal,
     form,
-    horizonInput,
-    verticalInput,
+    horizonSelect,
+    verticalSelect,
     btnStartGame,
   };
 }
@@ -94,7 +169,7 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
   let cardList = document.createElement("div");
   let timerDiv = createTimerGame();
   const btnRestart = document.createElement("button");
-  const inputStartGame = createInputForm();
+  const inputStartGame = createModalForm();
 
   cardList.classList.add("div");
   title.textContent = "Игра в пары";
@@ -118,32 +193,32 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
   }
 
   container.append(title);
-  container.append(inputStartGame.form);
+  container.append(inputStartGame.modal);
   container.append(timerDiv);
 
   inputStartGame.form.addEventListener("submit", () => {
-    let numberHorizon = inputStartGame.horizonInput.value % 2;
-    let numberVertical = inputStartGame.verticalInput.value % 2;
+    let numberHorizon = inputStartGame.horizonSelect.value % 2;
+    let numberVertical = inputStartGame.verticalSelect.value % 2;
 
     if (
-      (!inputStartGame.horizonInput.value &&
-        !inputStartGame.verticalInput.value) ||
-      !inputStartGame.horizonInput.value ||
-      !inputStartGame.verticalInput.value ||
-      inputStartGame.horizonInput.value > 10 ||
-      inputStartGame.verticalInput.value > 10 ||
+      (!inputStartGame.horizonSelect.value &&
+        !inputStartGame.verticalSelect.value) ||
+      !inputStartGame.horizonSelect.value ||
+      !inputStartGame.verticalSelect.value ||
+      inputStartGame.horizonSelect.value > 10 ||
+      inputStartGame.verticalSelect.value > 10 ||
       numberHorizon != 0 ||
       numberVertical != 0
     ) {
-      inputStartGame.horizonInput.value = localStorage.horizonCard = 2;
-      inputStartGame.verticalInput.value = localStorage.verticalCard = 2;
+      inputStartGame.horizonSelect.value = localStorage.horizonCard = 2;
+      inputStartGame.verticalSelect.value = localStorage.verticalCard = 2;
       return;
     }
 
-    localStorage.horizonCard = inputStartGame.horizonInput.value;
-    localStorage.verticalCard = inputStartGame.verticalInput.value;
-    inputStartGame.horizonInput.value = "";
-    inputStartGame.verticalInput.value = "";
+    localStorage.horizonCard = inputStartGame.horizonSelect.value;
+    localStorage.verticalCard = inputStartGame.verticalSelect.value;
+    inputStartGame.horizonSelect.value = "";
+    inputStartGame.verticalSelect.value = "";
   });
 
   // Логика карт игры.

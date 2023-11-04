@@ -11,9 +11,12 @@ class Card {
 
     const card = document.createElement("div");
     card.classList.add("card-btn");
+    this._img.classList.add("card-img");
+    this._imgCard.classList.add("card-wrapper");
+    this._imgCard.src = "../img/ball.webp";
     card.textContent = this.cardNumber;
     this.card = card;
-    card.append(this._img);
+    card.append(this._imgCard, this._img);
     card.addEventListener("click", () => {
       if (
         card.classList.contains("card-btn--open") ||
@@ -59,9 +62,11 @@ export class AmazingCard extends Card {
 
   set cardNumber(value) {
     this._cardNumber = value;
+    const imgCard = document.createElement("img");
     const img = document.createElement("img");
     fetchApi(this._cardNumber).then((url) => (img.src = url));
     img.alt = "picture";
+    this._imgCard = imgCard;
     this._img = img;
     this._img.onerror = function () {
       throw new TypeError("Ошибка во время загрузки изображения");
