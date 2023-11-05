@@ -13,7 +13,7 @@ class Card {
     card.classList.add("card-btn");
     this._img.classList.add("card-img");
     this._imgCard.classList.add("card-wrapper");
-    this._imgCard.src = "../img/ball-188918.png";
+    this._imgCard.src = "https://i.yapx.ru/WuUY3.png";
     card.textContent = this.cardNumber;
     this.card = card;
     card.append(this._imgCard, this._img);
