@@ -154,11 +154,11 @@ function createNumbersArray(count) {
 }
 
 function shuffle(arr) {
-  arr.sort(() => Math.random() - 0.5);
+  return arr.sort(() => Math.random() - 0.5);
 }
-shuffle(arrCard);
 
 function startGame(container, cardsNumberArray, horizon, vertical) {
+  shuffle(cardsNumberArray);
   let startTimerGame = false;
   let oneCard = null;
   let twoCard = null;
@@ -194,7 +194,7 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
 
   inputStartGame.form.addEventListener("submit", (e) => {
     e.preventDefault();
-    document.getElementById("card-game").innerHTML = "";
+    container.innerHTML = "";
     arrCard.length = 0;
 
     localStorage.horizonCard = inputStartGame.horizonSelect.value;
@@ -245,8 +245,6 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
         cardsNumberArray.length
       ) {
         startTimerGame = false;
-        delete localStorage.horizonCard;
-        delete localStorage.verticalCard;
         document.querySelector(".confetti").innerHTML = confetti;
         container.append(btnRestart);
       }
