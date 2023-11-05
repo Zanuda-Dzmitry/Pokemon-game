@@ -79,7 +79,7 @@ body {
 
 .modal__list {
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 60px 1fr;
   list-style-type: none;
   text-align: left;
   padding: 0;
@@ -88,7 +88,7 @@ body {
 .input-item {
   font-size: 20px;
   padding: 3px;
-  width: 45px;
+  width: 55px;
   height: 30px;
   color: rgb(103, 63, 22);
   border: 2px solid rgb(103, 63, 22);
@@ -103,9 +103,10 @@ body {
 .btnStartGame {
   font-size: 20px;
   cursor: pointer;
-  background-color: rgb(7, 78, 245);
+  background-color: rgb(103, 63, 22);
   border-radius: 7px;
   margin-top: 15px;
+  color: #fff;
 }
 
 .timer {
@@ -153,17 +154,9 @@ body {
   cursor: pointer;
 }
 
-.card-btn:hover {
+.card-btn:active {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
-}
-
-.card-btn:focus {
-  animation: none;
-}
-
-.card-btn:active {
-  animation: none;
 }
 
 @keyframes shake {
@@ -228,8 +221,9 @@ body {
 .btn-restart {
   font-size: 20px;
   cursor: pointer;
-  background-color: rgb(7, 78, 245);
+  background-color: rgb(103, 63, 22);
   border-radius: 7px;
+  color: #fff;
 }
 
 /* Burger */

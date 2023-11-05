@@ -9,9 +9,7 @@ export async function fetchApi(cardNumber) {
 }
 
 // Количество карт.
-let numberPairs = localStorage.horizonCard * localStorage.verticalCard;
-let quantityPairsHorizon = localStorage.horizonCard;
-let quantityPairsVertical = localStorage.verticalCard;
+
 let arrCard = [];
 
 // Музыкальное сопровождение игры.
@@ -63,8 +61,8 @@ function createModalForm() {
     formTitle = document.createElement("h4"),
     horizonSelect = document.createElement("select"),
     verticalSelect = document.createElement("select"),
-    labelHorizonSelect = document.createElement("label"),
-    labelVerticalSelect = document.createElement("label"),
+    labelHorizonSelect = document.createElement("span"),
+    labelVerticalSelect = document.createElement("span"),
     horizonOption1 = document.createElement("option"),
     verticalOption1 = document.createElement("option"),
     horizonOption2 = document.createElement("option"),
@@ -154,7 +152,6 @@ function createNumbersArray(count) {
     arrCard.push(i);
   }
 }
-createNumbersArray(numberPairs);
 
 function shuffle(arr) {
   arr.sort(() => Math.random() - 0.5);
@@ -171,7 +168,6 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
   const btnRestart = document.createElement("button");
   const inputStartGame = createModalForm();
 
-  cardList.classList.add("div");
   title.textContent = "Игра в пары";
   title.classList.add("title");
   cardList.classList.add("div");
@@ -196,29 +192,22 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
   container.append(inputStartGame.modal);
   container.append(timerDiv);
 
-  inputStartGame.form.addEventListener("submit", () => {
-    let numberHorizon = inputStartGame.horizonSelect.value % 2;
-    let numberVertical = inputStartGame.verticalSelect.value % 2;
-
-    if (
-      (!inputStartGame.horizonSelect.value &&
-        !inputStartGame.verticalSelect.value) ||
-      !inputStartGame.horizonSelect.value ||
-      !inputStartGame.verticalSelect.value ||
-      inputStartGame.horizonSelect.value > 10 ||
-      inputStartGame.verticalSelect.value > 10 ||
-      numberHorizon != 0 ||
-      numberVertical != 0
-    ) {
-      inputStartGame.horizonSelect.value = localStorage.horizonCard = 2;
-      inputStartGame.verticalSelect.value = localStorage.verticalCard = 2;
-      return;
-    }
+  inputStartGame.form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    document.getElementById("card-game").innerHTML = "";
+    arrCard.length = 0;
 
     localStorage.horizonCard = inputStartGame.horizonSelect.value;
     localStorage.verticalCard = inputStartGame.verticalSelect.value;
-    inputStartGame.horizonSelect.value = "";
-    inputStartGame.verticalSelect.value = "";
+
+    createNumbersArray(localStorage.horizonCard * localStorage.verticalCard);
+
+    startGame(
+      document.getElementById("card-game"),
+      arrCard,
+      localStorage.horizonCard,
+      localStorage.verticalCard
+    );
   });
 
   // Логика карт игры.
@@ -272,8 +261,8 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
     startGame(
       document.getElementById("card-game"),
       arrCard,
-      quantityPairsHorizon,
-      quantityPairsVertical
+      localStorage.horizonCard,
+      localStorage.verticalCard
     );
   });
 
@@ -298,8 +287,8 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
         startGame(
           document.getElementById("card-game"),
           arrCard,
-          quantityPairsHorizon,
-          quantityPairsVertical
+          localStorage.horizonCard,
+          localStorage.verticalCard
         );
       }
     }
@@ -310,6 +299,6 @@ function startGame(container, cardsNumberArray, horizon, vertical) {
 startGame(
   document.getElementById("card-game"),
   arrCard,
-  quantityPairsHorizon,
-  quantityPairsVertical
+  localStorage.horizonCard,
+  localStorage.verticalCard
 );
